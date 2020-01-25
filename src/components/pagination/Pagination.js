@@ -1,12 +1,11 @@
 import React from 'react';
+import { isFunction } from '../../helpers/IsFunction';
 import './Pagination.scss';
 
 //todo: поправить в стилях обводку при клике
 function Pagination(props) {
 
-    function isFunction(functionToCheck) {
-        return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
-    }
+    
     const isPrevBtnEnabled = () => props.page > 1;
     const isNextBtnEnabled = () => props.page < props.totalPages;
     const onClickPrev = () => {

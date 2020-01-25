@@ -2,11 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import Product from '../../components/product/Product';
 import Pagination from '../../components/pagination/Pagination';
+import SearchForm from '../../components/searchForm/SearchForm';
 import './IndexPage.scss';
 
 function IndexPage() {
     const [page, setPage] = useState(1);
     const totalPages = 4; 
+    const searchCallback = (searchText) => { console.log(searchText); }
 
     const products = [
         {
@@ -36,6 +38,7 @@ function IndexPage() {
     return (
         <div className="index-page">
             todo: header
+            <SearchForm sumbmitCallback={ searchCallback }/>
             <div className="products-container">
                 { productsRender }
             </div>
