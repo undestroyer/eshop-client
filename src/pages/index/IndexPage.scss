@@ -1,0 +1,10 @@
+.index-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .products-container {
+        width: 100%;
+        display: flex;
+    }
+}
