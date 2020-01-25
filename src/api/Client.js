@@ -3,7 +3,7 @@ import Token from '../models/Token';
 import Product from '../models/Product';
 import Cart from '../models/Cart';
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://demo4071048.mockable.io";
 
 /**
  * Регистрирует пользователя по телефону и паролю
