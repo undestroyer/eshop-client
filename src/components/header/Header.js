@@ -1,29 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Header.scss';
-import { logIn, logOut } from '../../store/actions/auth';
+import { logOut } from '../../store/actions/auth';
+import { setPage } from '../../store/actions/navigation';
 
 
 function Header(props) {
     const logInBtnPressed = () => {
-        props.logIn("test");
+        props.goToLogin();
     };
     const logOutBtnPressed = () => {
         props.logOut();
     }
+    const logoPressed = (event) => {
+        props.goToIndex();
+        event.preventDefault();
+    }
     return (
         <header>
             <div className="header__logo">
-                logo
+                <a href="#" onClick={ logoPressed }>logo</a>
             </div>
             <div className="header__filler"></div>
             <div className="header__links">
                 {!(props.token === null || props.token === '') ?
                     <>
                         <button>Корзина</button>
-                        <button onClick={logOutBtnPressed}>Выйти</button>
+                        <button onClick={logOutBtnPressed}>Выход</button>
                     </>
-                    : <button onClick={logInBtnPressed}>Войти</button>}
+                    : <button onClick={logInBtnPressed}>Вход</button>}
             </div>
         </header>
     );
@@ -37,7 +42,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    logIn: (token) => dispatch(logIn(token)),
+    goToLogin: () => dispatch(setPage("login")),
+    goToIndex: () => dispatch(setPage("index")),
     logOut: () => dispatch(logOut())
 })
 
