@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Product from '../../components/product/Product';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/searchForm/SearchForm';
+import Header from '../../components/header/Header';
 import './IndexPage.scss';
 
 function IndexPage() {
@@ -37,7 +38,7 @@ function IndexPage() {
     });
     return (
         <div className="index-page">
-            todo: header
+            <Header/>
             <SearchForm sumbmitCallback={ searchCallback }/>
             <div className="products-container">
                 { productsRender }
