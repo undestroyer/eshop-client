@@ -1,23 +1,44 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './Header.scss';
-function Header() {
-    const isAuthorized = false;
-    return(
+import { logIn, logOut } from '../../store/actions/auth';
+
+
+function Header(props) {
+    const logInBtnPressed = () => {
+        props.logIn("test");
+    };
+    const logOutBtnPressed = () => {
+        props.logOut();
+    }
+    return (
         <header>
             <div className="header__logo">
                 logo
             </div>
             <div className="header__filler"></div>
             <div className="header__links">
-                { isAuthorized ?  
+                {!(props.token === null || props.token === '') ?
                     <>
-                    <button>Корзина</button>
-                    <button>Выйти</button>
+                        <button>Корзина</button>
+                        <button onClick={logOutBtnPressed}>Выйти</button>
                     </>
-                : <button>Войти</button> }
+                    : <button onClick={logInBtnPressed}>Войти</button>}
             </div>
         </header>
     );
 }
 
-export default Header;
+const mapStateToProps = state => {
+    const { auth } = state;
+    return {
+        token: auth.token,
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    logIn: (token) => dispatch(logIn(token)),
+    logOut: () => dispatch(logOut())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

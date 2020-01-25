@@ -1,14 +1,26 @@
 import IndexPage from './pages/index/IndexPage'
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { setPage } from './store/actions/navigation';
 import './App.css';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      <IndexPage />
+      { props.pageName === "index" ? <IndexPage /> : ""}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  const { navigation } = state;
+  return {
+      pageName: navigation.pageName,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  goToPage: (pageName) => dispatch(setPage(pageName))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
