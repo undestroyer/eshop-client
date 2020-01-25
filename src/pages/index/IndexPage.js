@@ -1,8 +1,13 @@
 import React from 'react';
+import { useState } from 'react';
 import Product from '../../components/product/Product';
+import Pagination from '../../components/pagination/Pagination';
 import './IndexPage.scss';
 
 function IndexPage() {
+    const [page, setPage] = useState(1);
+    const totalPages = 4; 
+
     const products = [
         {
             "id": "ef55547e-b4b6-4449-bb3a-e0d3ed8a7806", 
@@ -28,12 +33,17 @@ function IndexPage() {
     const productsRender = products.map((prod) => {
         return(<Product key={ prod.id } product={ prod }/>);
     });
-    const totalProducts = 4;
     return (
         <div className="index-page">
             todo: header
             <div className="products-container">
                 { productsRender }
+            </div>
+            <div className="products-pagination">
+                <Pagination page={ page } 
+                    totalPages={ totalPages } 
+                    onNextPage={ () => setPage(page+1) }
+                    onPrevPage={ () => setPage(page-1) } />
             </div>
         </div>
     );
