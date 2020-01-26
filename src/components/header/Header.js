@@ -9,6 +9,9 @@ function Header(props) {
     const logInBtnPressed = () => {
         props.goToLogin();
     };
+    const registerBtnPressed = () => {
+        props.goToRegister();
+    };
     const logOutBtnPressed = () => {
         props.logOut();
     }
@@ -28,7 +31,12 @@ function Header(props) {
                         <button>Корзина</button>
                         <button onClick={logOutBtnPressed}>Выход</button>
                     </>
-                    : <button onClick={logInBtnPressed}>Вход</button>}
+                    : 
+                    <>
+                        <button onClick={registerBtnPressed}>Регистрация</button>
+                        <button onClick={logInBtnPressed}>Вход</button>
+                    </>
+                    }
             </div>
         </header>
     );
@@ -44,6 +52,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     goToLogin: () => dispatch(setPage("login")),
     goToIndex: () => dispatch(setPage("index")),
+    goToRegister: () => dispatch(setPage("register")),
     logOut: () => dispatch(logOut())
 })
 

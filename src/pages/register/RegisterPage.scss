@@ -1,9 +1,9 @@
-.login-page {
+.register-page {
     width: 100%;
     display: flex;
     flex-direction: column;
 
-    .login-form {
+    .register-form {
         text-align: initial;
         width: 80%;
         max-width: 300px;
@@ -11,12 +11,12 @@
         display: flex;
         flex-direction: column;
 
-        .login-form__title {
+        .register-form__title {
             width: 100%;
             text-align: center;
         }
 
-        .login-form__form {
+        .register-form__form {
             width: 100%;
             display: flex;
             flex-direction: column;
