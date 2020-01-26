@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import TokenManager from '../../managers/TokenManager';
 import './Header.scss';
 import { logOut } from '../../store/actions/auth';
 import { setPage } from '../../store/actions/navigation';
@@ -13,6 +14,7 @@ function Header(props) {
         props.goToRegister();
     };
     const logOutBtnPressed = () => {
+        TokenManager.removeToken();
         props.logOut();
     }
     const cartBtnPressed = () => {

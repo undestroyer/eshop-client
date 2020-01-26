@@ -27,6 +27,13 @@ class TokenManager
         localStorage.setItem(this.TOKEN_STORAGE_KEY, JSON.stringify(token));
     }
 
+    /**
+     * Удаляет токен из LocalStorage
+     */
+    static removeToken() {
+        localStorage.removeItem(this.TOKEN_STORAGE_KEY);
+    }
+
 }
 
 export default TokenManager;
