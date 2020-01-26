@@ -3,7 +3,7 @@ import { isFunction } from '../../helpers/IsFunction';
 import './SearchForm.scss';
 
 function SearchForm(props){
-    const [filterVal, setFilterVal] = useState('');
+    const [filterVal, setFilterVal] = useState(props.nameFilter);
     const onSubmit = (e) => {
         if (isFunction(props.sumbmitCallback)) {
             props.sumbmitCallback(filterVal);

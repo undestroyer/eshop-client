@@ -100,19 +100,19 @@ export async function confirmCart(token) {
  * Получает товары с сервера
  * @param {number|null} page 
  * @param {string|null} name 
- * @returns {Product[]}
+ * @returns {{items: Product[], total: number}}
  * @todo page нужно проверить на целое число
  */
 export async function getProducts(page = 1, name = '') {
     let response = await fetch(API_BASE_URL + `/product/index?name=${name}&page=${page}`, {
-        method: "POST",
+        method: "GET",
     });
     if (response.status === 200) {
-        const apiProducts = await response.json();
+        const { items, total } = await response.json();
         let result = [];
-        apiProducts.forEach(x => {
+        items.forEach(x => {
             result.push(Product.buildFromJson(x));
         })
-        return result;
+        return { items: result, total: total };
     }
 }
