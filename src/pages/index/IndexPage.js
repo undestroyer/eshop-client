@@ -12,7 +12,7 @@ import { getProducts } from '../../api/Client';
 function IndexPage(props) {
     const itemsPerPage = 10;
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(4); 
+    const [totalPages, setTotalPages] = useState(1); 
     const [nameFilter, setNameFilter] = useState("");
 
     const searchCallback = (newNameFilter) => {
@@ -33,6 +33,7 @@ function IndexPage(props) {
         <Product 
             key={ prod.id } 
             product={ prod }
+            addToCartActive={ props.auth.token?.lenght > 0 }
             addToCart={ (productId, amount) => props.addProductToCart(productId, amount) }
             removeFromCart={ (productId) => props.removeProductFromCart(productId) }
             updateAmountInCart={ (productId, amount) => props.updateAmountInCart(productId, amount)}
@@ -56,8 +57,9 @@ function IndexPage(props) {
 }
 
 const mapStateToProps = state => {
-    const { cart, product } = state;
+    const { auth, cart, product } = state;
     return {
+        auth: auth,
         cart: cart,
         product: product
     }

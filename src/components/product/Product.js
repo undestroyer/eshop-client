@@ -6,6 +6,8 @@ function Product(props) {
     const formatPrice = (price) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
     const [amount, setAmount] = useState(1);
     const [inCart, setInCart] = useState(false);
+    const [btnTitle, setBtnTitle] = useState("");
+    
     const cartClick = () => {
         if (inCart) {
             props.removeFromCart(props.product.id);
@@ -14,6 +16,12 @@ function Product(props) {
         }
         setInCart(!inCart);
     }
+
+    useEffect(() => {
+        setBtnTitle(props.addToCartActive 
+            ? "Добавьте в свою корзину" 
+            : "Войдите или зарегистрируйтесь чтобы добавить товар в корзину");
+    }, [props.addToCartActive])
 
     useEffect(() => {
         if (inCart) {
@@ -43,7 +51,9 @@ function Product(props) {
                         <input type="number" min={1} value={amount} onChange={ (e) => setAmount(e.target.value) } />
                     </div>
                     <div className="product-order__button">
-                        <button onClick={ cartClick }>{ inCart ? String.fromCharCode(10004)+" В корзине" : "+ В корзину" }</button>
+                        <button onClick={ cartClick } disabled={ !props.addToCartActive } title={ btnTitle }> 
+                            { inCart ? String.fromCharCode(10004)+" В корзине" : "+ В корзину" }
+                        </button>
                     </div>
                 </div>
         </div>
