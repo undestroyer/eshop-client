@@ -52,19 +52,26 @@ function CartPage(props) {
                 <div className="cart-view__total">
                     Итого: { totalSum() }
                 </div>
-                <div className="cart-view__confirm">
-                    <button className="cart-view__confirmBtn">Подтвердить</button>
-                </div>
+                { props.auth.token === null ?  
+                    <div className="cart-view__auth-required">
+                        Для подтверждения покупки необходимо войти.
+                    </div>
+                    :
+                    <div className="cart-view__confirm">
+                        <button className="cart-view__confirmBtn">Подтвердить</button>
+                    </div>
+                }
             </div>
         </div>
     );
 }
 
 const mapStateToProps = state => {
-    const { cart, product } = state;
+    const { cart, product, auth } = state;
     return {
         cart: cart,
-        product: product
+        product: product,
+        auth: auth
     }
 }
 
