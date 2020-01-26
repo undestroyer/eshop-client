@@ -15,6 +15,9 @@ function Header(props) {
     const logOutBtnPressed = () => {
         props.logOut();
     }
+    const cartBtnPressed = () => {
+        props.goToCart();
+    }
     const logoPressed = (event) => {
         props.goToIndex();
         event.preventDefault();
@@ -28,7 +31,7 @@ function Header(props) {
             <div className="header__links">
                 {!(props.token === null || props.token === '') ?
                     <>
-                        <button>Корзина</button>
+                        <button onClick={cartBtnPressed}>Корзина</button>
                         <button onClick={logOutBtnPressed}>Выход</button>
                     </>
                     : 
@@ -53,6 +56,7 @@ const mapDispatchToProps = dispatch => ({
     goToLogin: () => dispatch(setPage("login")),
     goToIndex: () => dispatch(setPage("index")),
     goToRegister: () => dispatch(setPage("register")),
+    goToCart: () => dispatch(setPage("cart")),
     logOut: () => dispatch(logOut())
 })
 

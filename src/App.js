@@ -5,6 +5,7 @@ import { setPage } from './store/actions/navigation';
 import './App.css';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
+import CartPage from './pages/cart/CartPage';
 
 function App(props) {
   return (
@@ -12,7 +13,8 @@ function App(props) {
       { props.pageName === "index" ? <IndexPage /> : 
           props.pageName === "login" ? <LoginPage /> :
             props.pageName === "register" ? <RegisterPage /> :
-            ""
+              props.pageName === "cart" ? <CartPage /> :
+              ""
       }
     </div>
   );
