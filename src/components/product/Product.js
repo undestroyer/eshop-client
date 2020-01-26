@@ -1,10 +1,10 @@
 import React from 'react';
 import './Product.scss';
+import { placeholdedSrc } from '../../helpers/PlaceholdedImgSrc';
 
 function Product(props) {
-    const imgPlaceholder = "https://semantic-ui.com/images/wireframe/image.png";
+    
     const formatPrice = (price) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
-    const placeholdedImageSrc = (imageUrl) => imageUrl===null || imageUrl==="" ? imgPlaceholder : imageUrl;
     let inCart = false;
     const cartClick = (event) => {
         // todo: написать handler
@@ -13,7 +13,7 @@ function Product(props) {
         <div className="product">
             <div className="product__image">
                 {}
-                <img src={ placeholdedImageSrc(props.product.pictureUrl) } alt={ props.product.name } />
+                <img src={ placeholdedSrc(props.product.pictureUrl) } alt={ props.product.name } />
             </div>
             <div className="product__name">
                 { props.product.name }
