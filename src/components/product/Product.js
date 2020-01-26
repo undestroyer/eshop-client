@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Product.scss';
 import { placeholdedSrc } from '../../helpers/PlaceholdedImgSrc';
 
 function Product(props) {
-    
     const formatPrice = (price) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
-    let inCart = false;
+    const [inCart, setInCart] = useState(false);
     const cartClick = (event) => {
-        // todo: написать handler
+        if (inCart) {
+            props.removeFromCart(props.product.id);
+        } else {
+            props.addToCart(props.product.id, 1);
+        }
+        setInCart(!inCart);
     }
     return(
         <div className="product">

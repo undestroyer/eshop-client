@@ -1,12 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { setProducts } from '../../store/actions/product';
 import Product from '../../components/product/Product';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/searchForm/SearchForm';
 import Header from '../../components/header/Header';
 import './IndexPage.scss';
+import { addProductToCart, removeProductFromCart } from '../../store/actions/cart';
 
-function IndexPage() {
+function IndexPage(props) {
     const [page, setPage] = useState(1);
     const totalPages = 4; 
     const searchCallback = (searchText) => { console.log(searchText); }
@@ -33,9 +35,13 @@ function IndexPage() {
             }
         }
     ];
-    const productsRender = products.map((prod) => {
-        return(<Product key={ prod.id } product={ prod }/>);
-    });
+    const productsRender = products.map((prod) => 
+        <Product 
+            key={ prod.id } 
+            product={ prod }
+            addToCart={ (productId, amount) => props.addProductToCart(productId, amount) }
+            removeFromCart={ (productId) => props.removeProductFromCart(productId) }
+        />);
     return (
         <div className="index-page">
             <Header/>
@@ -53,4 +59,19 @@ function IndexPage() {
     );
 }
 
-export default IndexPage;
+const mapStateToProps = state => {
+    const { cart, product } = state;
+    return {
+        cart: cart,
+        product: product
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    setProducts: (products) => dispatch(setProducts(products)),
+    addProductToCart: (productId, amount) => dispatch(addProductToCart(productId, amount)),
+    removeProductFromCart: (productId) => dispatch(removeProductFromCart(productId)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);

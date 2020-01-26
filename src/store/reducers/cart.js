@@ -4,10 +4,10 @@ const initialState = {
     items: []
 }
 
-export default (state = initialState, action) => {
+const cart = (state = initialState, action) => {
     switch (action.type) {
         case Types.ADD_PRODUCT_TO_CART:
-            let cartItems = state.cart ?? [];
+            let cartItems = state.items ?? [];
             cartItems.push(action.payload)
             return Object.assign({}, state, {
                 items: cartItems
@@ -16,13 +16,13 @@ export default (state = initialState, action) => {
             /**
              * @var {array} existingCartItems
              */
-            let existingCartItems = state.cart.map(x => x);
+            let existingCartItems = state.items.map(x => x);
             existingCartItems = existingCartItems.filter(x => x.productId !== action.payload);
             return Object.assign({}, state, {
                 items: existingCartItems
             });
         case Types.SET_AMOUNT_FOR_PRODUCT_IN_CART:
-            let items = state.cart.map(x => x);
+            let items = state.items.map(x => x);
             items.forEach((item, index) => {
                 if (item.productId === action.payload.productId) {
                     items[index].amount = action.payload.amount;
@@ -35,3 +35,5 @@ export default (state = initialState, action) => {
             return state
     }
 }
+
+export default cart;
