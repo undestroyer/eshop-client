@@ -5,6 +5,7 @@ import { logIn } from '../../store/actions/auth';
 import './RegisterPage.scss';
 import { connect } from 'react-redux';
 import { register } from '../../api/Client';
+import TokenManager from '../../managers/TokenManager';
 
 function RegisterPage(props) {
     const [phone, setPhone] = useState('');
@@ -34,6 +35,7 @@ function RegisterPage(props) {
         }
         if (validated) {
             const registerResult = await register(phone, password);
+            TokenManager.setToken(registerResult);
             props.register(registerResult.token);
             props.goToHome();
         }

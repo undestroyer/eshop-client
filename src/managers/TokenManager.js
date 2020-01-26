@@ -8,24 +8,13 @@ import Token from "../models/Token";
  */
 class TokenManager 
 {
-    TOKEN_STORAGE_KEY = 'token';
-
-    /**
-     * Создает объект менеджера токена
-     * @param {Token|null} token 
-     */
-    constructor(token = null) {
-        this.token = token;
-    }
+    static TOKEN_STORAGE_KEY = 'token';
 
     /**
      * Возвращает токен из внутренней памяти или localStorage
      * @returns {Token|null}
      */
-    getToken() {
-        if (this.token !== null) {
-            return this.token;
-        }
+    static getToken() {
         const localStorageToken = localStorage.getItem(this.TOKEN_STORAGE_KEY);
         return localStorageToken === null ? null : Token.buildFromJson(JSON.parse(localStorageToken));
     }
@@ -34,8 +23,7 @@ class TokenManager
      * Сохраняет токен в LocalStorage
      * @param {Token} token 
      */
-    setToken(token) {
-        this.token = token;
+    static setToken(token) {
         localStorage.setItem(this.TOKEN_STORAGE_KEY, JSON.stringify(token));
     }
 
