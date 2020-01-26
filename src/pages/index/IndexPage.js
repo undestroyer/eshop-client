@@ -14,7 +14,6 @@ function IndexPage(props) {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(4); 
     const [nameFilter, setNameFilter] = useState("");
-    const [products, setProducts] = useState([]);
 
     const searchCallback = (newNameFilter) => {
         setNameFilter(newNameFilter);
@@ -23,14 +22,14 @@ function IndexPage(props) {
     useEffect(() => {
         const loadProducts = async () => {
             const { items, total } = await getProducts(page, nameFilter);
-            setProducts(items);
+            props.setProducts(items);
             setTotalPages(Math.ceil(total / itemsPerPage));
         }
 
         loadProducts();
     }, [page, nameFilter]);
     
-    const productsRender = products.map((prod) => 
+    const productsRender = props.product.products.map((prod) => 
         <Product 
             key={ prod.id } 
             product={ prod }
