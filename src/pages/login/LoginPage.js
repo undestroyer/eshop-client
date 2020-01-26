@@ -4,6 +4,8 @@ import { setPage } from '../../store/actions/navigation';
 import { logIn } from '../../store/actions/auth';
 import './LoginPage.scss';
 import { connect } from 'react-redux';
+import { auth } from '../../api/Client';
+import TokenManager from '../../managers/TokenManager';
 
 function LoginPage(props) {
     const [phone, setPhone] = useState('');
@@ -11,7 +13,8 @@ function LoginPage(props) {
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const formSubmit = (event) => {
+    const formSubmit = async (event) => {
+        event.preventDefault();
         let validated = true;
         if (phone.length === 0) {
             setPhoneError('Телефон долен быть заполнен');
@@ -22,10 +25,12 @@ function LoginPage(props) {
             validated = false;
         }
         if (validated) {
-            props.logIn("demoToken");
+            let token = await auth(phone, password);
+            TokenManager.setToken(token);
+            props.logIn(token.token)
             props.goToHome();
         }
-        event.preventDefault();
+        
     }
 
     return(

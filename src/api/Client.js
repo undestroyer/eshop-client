@@ -36,7 +36,10 @@ export async function auth(phone, password) {
     let form = new AuthForm(phone, password);
     let response = await fetch(API_BASE_URL + '/auth/login', {
         method: "POST",
-        body: form
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(form)
     });
     if (response.status === 200) {
         return Token.buildFromJson(await response.json());
