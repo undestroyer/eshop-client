@@ -6,7 +6,7 @@ import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/searchForm/SearchForm';
 import Header from '../../components/header/Header';
 import './IndexPage.scss';
-import { addProductToCart, removeProductFromCart } from '../../store/actions/cart';
+import { addProductToCart, removeProductFromCart, setAmountForProductInCart } from '../../store/actions/cart';
 import { getProducts } from '../../api/Client';
 
 function IndexPage(props) {
@@ -36,6 +36,7 @@ function IndexPage(props) {
             product={ prod }
             addToCart={ (productId, amount) => props.addProductToCart(productId, amount) }
             removeFromCart={ (productId) => props.removeProductFromCart(productId) }
+            updateAmountInCart={ (productId, amount) => props.updateAmountInCart(productId, amount)}
         />);
 
     return (
@@ -67,6 +68,7 @@ const mapDispatchToProps = dispatch => ({
     setProducts: (products) => dispatch(setProducts(products)),
     addProductToCart: (productId, amount) => dispatch(addProductToCart(productId, amount)),
     removeProductFromCart: (productId) => dispatch(removeProductFromCart(productId)),
+    updateAmountInCart: (productId, amount) => dispatch(setAmountForProductInCart(productId, amount)),
 })
 
 
