@@ -4,6 +4,7 @@ import { setPage } from '../../store/actions/navigation';
 import { logIn } from '../../store/actions/auth';
 import './RegisterPage.scss';
 import { connect } from 'react-redux';
+import { register } from '../../api/Client';
 
 function RegisterPage(props) {
     const [phone, setPhone] = useState('');
@@ -13,7 +14,8 @@ function RegisterPage(props) {
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordRepeatError, setPasswordRepeatError] = useState('');
 
-    const formSubmit = (event) => {
+    const formSubmit = async (event) => {
+        event.preventDefault();
         let validated = true;
         if (phone.length === 0) {
             setPhoneError('Телефон долен быть заполнен');
@@ -31,10 +33,10 @@ function RegisterPage(props) {
             validated = false;
         }
         if (validated) {
-            props.register("demoToken");
+            const registerResult = await register(phone, password);
+            props.register(registerResult.token);
             props.goToHome();
         }
-        event.preventDefault();
     }
 
     return(

@@ -13,9 +13,13 @@ const API_BASE_URL = "http://demo4071048.mockable.io";
  */
 export async function register(phone, password) {
     let form = new AuthForm(phone, password);
+    console.log(JSON.stringify(form));
     let response = await fetch(API_BASE_URL + '/auth/register', {
         method: "POST",
-        body: form
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(form)
     });
     if (response.status === 201) {
         return Token.buildFromJson(await response.json());
