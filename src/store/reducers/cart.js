@@ -1,7 +1,8 @@
 import Types from '../types';
 
 const initialState = {
-    items: []
+    items: [],
+    lockedUntil: 0
 }
 
 const cart = (state = initialState, action) => {
@@ -31,6 +32,18 @@ const cart = (state = initialState, action) => {
             return Object.assign({}, state, {
                 items: items
             });
+        case Types.LOCK_CART:
+            const date = new Date();
+            date.setDate(date.getDate() + 1);
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
+            return Object.assign({}, state, {
+                lockedUntil: date.getTime()
+            });
+        case Types.RESET_CART:
+            return Object.assign({}, initialState);
         default:
             return state
     }

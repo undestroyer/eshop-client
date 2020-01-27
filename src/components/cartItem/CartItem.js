@@ -24,10 +24,22 @@ function CartItem(props) {
                 </span>
             </div>
             <div className="cart-item__amount">
-                <input type="number" min={ 1 } value={ amount } onChange={ (e) => setAmount(e.target.value)} />
+                <input 
+                    type="number" 
+                    min={ 1 } 
+                    value={ amount } 
+                    onChange={ (e) => setAmount(e.target.value)} 
+                    disabled={ !props.isEditable }
+                    />
             </div>
             <div className="cart-item__actions">
-                <button className="cart-item__remove" onClick={ () => removeItem(props.product.id) }>Удалить</button>
+                <button 
+                    className="cart-item__remove" 
+                    onClick={ () => removeItem(props.product.id) }
+                    disabled={ !props.isEditable }
+                    >
+                        Удалить
+                    </button>
             </div>
         </div>
     );

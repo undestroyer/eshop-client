@@ -20,3 +20,11 @@ export const setAmountForProductInCart = (productId, amount) => ({
         amount: amount
     }
 });
+
+export const lockCart = () => ({
+    type: Types.LOCK_CART
+});
+
+export const resetCart = () => ({
+    type: Types.RESET_CART
+})
