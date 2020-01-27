@@ -25,8 +25,9 @@ function IndexPage(props) {
                 const { items, total } = await getProducts(page, nameFilter);
                 props.setProducts(items);
                 setTotalPages(Math.ceil(total / itemsPerPage));
+                props.setProductLoadingError("");
             } catch (e) {
-                props.setProductLoadingError("Не удалось загрузить товары. Попробуйте позже.")
+                props.setProductLoadingError("Не удалось загрузить товары. Попробуйте позже.");
             }
         }
 
@@ -47,7 +48,7 @@ function IndexPage(props) {
         <div className="index-page">
             <Header/>
             {
-                props.product.loadingError.lenght === 0 
+                props.product.loadingError.length === 0
                 ?
                     <>
                         <SearchForm nameFilter={nameFilter} sumbmitCallback={ searchCallback } />
