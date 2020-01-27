@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setProducts } from '../../store/actions/product';
+import { setProducts, setProductLoadingError } from '../../store/actions/product';
 import Product from '../../components/product/Product';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/searchForm/SearchForm';
@@ -21,9 +21,13 @@ function IndexPage(props) {
 
     useEffect(() => {
         const loadProducts = async () => {
-            const { items, total } = await getProducts(page, nameFilter);
-            props.setProducts(items);
-            setTotalPages(Math.ceil(total / itemsPerPage));
+            try {
+                const { items, total } = await getProducts(page, nameFilter);
+                props.setProducts(items);
+                setTotalPages(Math.ceil(total / itemsPerPage));
+            } catch (e) {
+                props.setProductLoadingError("Не удалось загрузить товары. Попробуйте позже.")
+            }
         }
 
         loadProducts();
@@ -42,16 +46,27 @@ function IndexPage(props) {
     return (
         <div className="index-page">
             <Header/>
-            <SearchForm nameFilter={nameFilter} sumbmitCallback={ searchCallback } />
-            <div className="products-container">
-                { productsRender }
-            </div>
-            <div className="products-pagination">
-                <Pagination page={ page } 
-                    totalPages={ totalPages } 
-                    onNextPage={ () => setPage(page+1) }
-                    onPrevPage={ () => setPage(page-1) } />
-            </div>
+            {
+                props.product.loadingError.lenght === 0 
+                ?
+                    <>
+                        <SearchForm nameFilter={nameFilter} sumbmitCallback={ searchCallback } />
+                        <div className="products-container">
+                            { productsRender }
+                        </div>
+                        <div className="products-pagination">
+                            <Pagination page={ page } 
+                                totalPages={ totalPages } 
+                                onNextPage={ () => setPage(page+1) }
+                                onPrevPage={ () => setPage(page-1) } />
+                        </div>
+                    </>
+                :
+                    <div className="products-error">
+                        { props.product.loadingError }
+                    </div>
+            }
+            
         </div>
     );
 }
@@ -67,6 +82,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     setProducts: (products) => dispatch(setProducts(products)),
+    setProductLoadingError: (error) => dispatch(setProductLoadingError(error)),
     addProductToCart: (productId, amount) => dispatch(addProductToCart(productId, amount)),
     removeProductFromCart: (productId) => dispatch(removeProductFromCart(productId)),
     updateAmountInCart: (productId, amount) => dispatch(setAmountForProductInCart(productId, amount)),

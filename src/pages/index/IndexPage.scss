@@ -8,4 +8,14 @@
         display: flex;
         flex-wrap: wrap;
     }
+
+    .products-error {
+        width: 80%;
+        background-color: #f08080;
+        color:#ffffff;
+        text-align: center;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 4px;
+    }
 }
