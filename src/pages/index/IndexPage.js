@@ -38,7 +38,7 @@ function IndexPage(props) {
         <Product 
             key={ prod.id } 
             product={ prod }
-            addToCartActive={ props.auth.token?.lenght > 0 }
+            addToCartActive={ props.auth.token?.length > 0 }
             addToCart={ (productId, amount) => props.addProductToCart(productId, amount) }
             removeFromCart={ (productId) => props.removeProductFromCart(productId) }
             updateAmountInCart={ (productId, amount) => props.updateAmountInCart(productId, amount)}
