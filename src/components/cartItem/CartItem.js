@@ -24,7 +24,7 @@ function CartItem(props) {
                 </span>
             </div>
             <div className="cart-item__amount">
-                <input type="number" value={ amount } onChange={ (e) => setAmount(e.target.value)} />
+                <input type="number" min={ 1 } value={ amount } onChange={ (e) => setAmount(e.target.value)} />
             </div>
             <div className="cart-item__actions">
                 <button className="cart-item__remove" onClick={ () => removeItem(props.product.id) }>Удалить</button>
