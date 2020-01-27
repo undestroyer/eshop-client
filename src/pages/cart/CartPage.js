@@ -46,21 +46,31 @@ function CartPage(props) {
                 <div className="cart-view__title">
                     <h1>Корзина</h1>
                 </div>
-                <div className="cart-view__products">
-                    { cartItems }
-                </div>
-                <div className="cart-view__total">
-                    Итого: { totalSum() }
-                </div>
-                { props.auth.token === null ?  
-                    <div className="cart-view__auth-required">
-                        Для подтверждения покупки необходимо войти.
-                    </div>
-                    :
-                    <div className="cart-view__confirm">
-                        <button className="cart-view__confirmBtn">Подтвердить</button>
-                    </div>
+                { props.cart.items.length > 0 
+                    ?
+                        <>
+                        <div className="cart-view__products">
+                            { cartItems }
+                        </div>
+                        <div className="cart-view__total">
+                            Итого: { totalSum() }
+                        </div>
+                        { props.auth.token === null ?  
+                            <div className="cart-view__auth-required">
+                                Для подтверждения покупки необходимо войти.
+                            </div>
+                            :
+                            <div className="cart-view__confirm">
+                                <button className="cart-view__confirmBtn">Подтвердить</button>
+                            </div>
+                        }
+                        </>
+                    :  
+                        <div className="cart-view__empty">
+                            В вашей корзине еще ничего нет. Добавьте товары в корзину чтобы подтвердить свой заказ.
+                        </div>          
                 }
+                
             </div>
         </div>
     );
