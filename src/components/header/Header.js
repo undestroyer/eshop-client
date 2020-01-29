@@ -4,6 +4,7 @@ import TokenManager from '../../managers/TokenManager';
 import './Header.scss';
 import { logOut } from '../../store/actions/auth';
 import { setPage } from '../../store/actions/navigation';
+import PropTypes from 'prop-types';
 
 
 function Header(props) {
@@ -61,5 +62,14 @@ const mapDispatchToProps = dispatch => ({
     goToCart: () => dispatch(setPage("cart")),
     logOut: () => dispatch(logOut())
 })
+
+Header.propTypes = {
+    token: PropTypes.string,
+    goToLogin: PropTypes.func.isRequired,
+    goToIndex: PropTypes.func.isRequired,
+    goToRegister: PropTypes.func.isRequired,
+    goToCart: PropTypes.func.isRequired,
+    logOut: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

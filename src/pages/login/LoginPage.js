@@ -6,6 +6,7 @@ import './LoginPage.scss';
 import { connect } from 'react-redux';
 import { auth } from '../../api/Client';
 import TokenManager from '../../managers/TokenManager';
+import PropTypes from 'prop-types';
 
 function LoginPage(props) {
     const [phone, setPhone] = useState('');
@@ -63,6 +64,16 @@ function LoginPage(props) {
 const mapDispatchToProps = dispatch => ({
     goToHome: () => dispatch(setPage("index")),
     logIn: (token) => dispatch(logIn(token))
-  })
+})
+
+LoginPage.propTypes = {
+    goToHome: PropTypes.func,
+    logIn: PropTypes.func
+}
+
+LoginPage.defaultProps = {
+    goToHome: () => {},
+    logIn: () => {},
+}
   
-  export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

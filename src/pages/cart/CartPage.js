@@ -4,6 +4,7 @@ import CartItem from '../../components/cartItem/CartItem';
 import { connect } from 'react-redux';
 import './CartPage.scss';
 import { setAmountForProductInCart, removeProductFromCart, lockCart } from '../../store/actions/cart';
+import PropTypes from 'prop-types';
 
 function CartPage(props) {
     const [isEditable, setIsEditable] = useState(true);
@@ -103,5 +104,29 @@ const mapDispatchToProps = dispatch => ({
     changeAmount: (productId, amount) => dispatch(setAmountForProductInCart(productId, amount)),
     lockCart: () => dispatch(lockCart()),
 })
+
+CartPage.propTypes = {
+    cart: PropTypes.object,
+    product: PropTypes.object,
+    auth: PropTypes.object,
+    removeProduct: PropTypes.func,
+    changeAmount: PropTypes.func,
+    lockCart: PropTypes.func,
+}
+
+CartPage.defaultProps = {
+    cart: {
+        items: []
+    },
+    product: {
+        products: []
+    },
+    auth: {
+        token: ''
+    },
+    removeProduct: () => {},
+    changeAmount: () => {},
+    lockCart: () => {},
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

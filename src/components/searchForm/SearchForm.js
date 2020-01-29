@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { isFunction } from '../../helpers/IsFunction';
 import './SearchForm.scss';
+import PropTypes from 'prop-types';
 
 function SearchForm(props){
     const [filterVal, setFilterVal] = useState(props.nameFilter);
     const onSubmit = (e) => {
-        if (isFunction(props.sumbmitCallback)) {
-            props.sumbmitCallback(filterVal);
-        }
+        props.sumbmitCallback(filterVal);
         e.preventDefault();
     };
     return (
@@ -16,6 +14,15 @@ function SearchForm(props){
             <input type="submit" value="Найти" />
         </form>
     );
+}
+
+SearchForm.propTypes = {
+    sumbmitCallback: PropTypes.func.isRequired,
+    nameFilter: PropTypes.string
+}
+
+SearchForm.defaultProps = {
+    nameFilter: '',
 }
 
 export default SearchForm;

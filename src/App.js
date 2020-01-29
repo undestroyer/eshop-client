@@ -1,5 +1,6 @@
 import IndexPage from './pages/index/IndexPage'
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { setPage } from './store/actions/navigation';
 import './App.css';
@@ -41,5 +42,17 @@ const mapDispatchToProps = dispatch => ({
   goToPage: (pageName) => dispatch(setPage(pageName)),
   logIn: (token) => dispatch(logIn(token)),
 })
+
+App.propTypes = {
+  pageName: PropTypes.string,
+  goToPage: PropTypes.func,
+  logIn: PropTypes.func,
+}
+
+App.defaultProps = {
+  pageName: "",
+  goToPage: () => {},
+  logIn: () => {},
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

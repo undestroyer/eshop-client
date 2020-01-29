@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Product.scss';
 import { placeholdedSrc } from '../../helpers/PlaceholdedImgSrc';
+import PropTypes from 'prop-types';
 
 function Product(props) {
     const formatPrice = (price) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
@@ -58,6 +59,14 @@ function Product(props) {
                 </div>
         </div>
     );
+}
+
+Product.propTypes = {
+    product: PropTypes.object.isRequired,
+    addToCartActive: PropTypes.bool.isRequired,
+    addToCart: PropTypes.func.isRequired,
+    removeFromCart: PropTypes.func.isRequired,
+    updateAmountInCart: PropTypes.func.isRequired,
 }
 
 export default Product;

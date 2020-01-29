@@ -8,6 +8,7 @@ import Header from '../../components/header/Header';
 import './IndexPage.scss';
 import { addProductToCart, removeProductFromCart, setAmountForProductInCart } from '../../store/actions/cart';
 import { getProducts } from '../../api/Client';
+import PropTypes from 'prop-types';
 
 function IndexPage(props) {
     const itemsPerPage = 10;
@@ -73,10 +74,9 @@ function IndexPage(props) {
 }
 
 const mapStateToProps = state => {
-    const { auth, cart, product } = state;
+    const { auth, product } = state;
     return {
         auth: auth,
-        cart: cart,
         product: product
     }
 }
@@ -89,5 +89,29 @@ const mapDispatchToProps = dispatch => ({
     updateAmountInCart: (productId, amount) => dispatch(setAmountForProductInCart(productId, amount)),
 })
 
+IndexPage.propTypes = {
+    auth: PropTypes.object,
+    product: PropTypes.object,
+    setProducts: PropTypes.func,
+    setProductLoadingError: PropTypes.func,
+    addProductToCart: PropTypes.func,
+    removeProductFromCart: PropTypes.func,
+    updateAmountInCart: PropTypes.func,
+}
+
+IndexPage.defaultPtops = {
+    auth: {
+        token: null
+    },
+    products: {
+        loadingError: '',
+        products: []
+    },
+    setProducts: () => {},
+    setProductLoadingError: () => {},
+    addProductToCart: () => {},
+    removeProductFromCart: () => {},
+    updateAmountInCart: () => {},
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);

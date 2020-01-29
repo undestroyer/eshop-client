@@ -1,6 +1,6 @@
 import React from 'react';
-import { isFunction } from '../../helpers/IsFunction';
 import './Pagination.scss';
+import PropTypes from 'prop-types';
 
 //todo: поправить в стилях обводку при клике
 function Pagination(props) {
@@ -9,14 +9,10 @@ function Pagination(props) {
     const isPrevBtnEnabled = () => props.page > 1;
     const isNextBtnEnabled = () => props.page < props.totalPages;
     const onClickPrev = () => {
-        if (isFunction(props.onPrevPage)) {
-            props.onPrevPage();
-        }
+        props.onPrevPage();
     }
     const onClickNext = () => {
-        if (isFunction(props.onNextPage)) {
-            props.onNextPage();
-        }
+        props.onNextPage();
     }
 
     return (
@@ -32,6 +28,13 @@ function Pagination(props) {
             </button>
         </div>
     );
+}
+
+Pagination.propTypes = {
+    page: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    onPrevPage: PropTypes.func.isRequired,
+    onNextPage: PropTypes.func.isRequired,
 }
 
 export default Pagination;

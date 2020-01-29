@@ -6,6 +6,7 @@ import './RegisterPage.scss';
 import { connect } from 'react-redux';
 import { register } from '../../api/Client';
 import TokenManager from '../../managers/TokenManager';
+import PropTypes from 'prop-types';
 
 function RegisterPage(props) {
     const [phone, setPhone] = useState('');
@@ -76,6 +77,16 @@ function RegisterPage(props) {
 const mapDispatchToProps = dispatch => ({
     goToHome: () => dispatch(setPage("index")),
     register: (token) => dispatch(logIn(token))
-  })
-  
-  export default connect(null, mapDispatchToProps)(RegisterPage);
+})
+
+RegisterPage.propTypes = {
+    goToHome: PropTypes.func,
+    register: PropTypes.func
+}
+
+RegisterPage.defaultProps = {
+    goToHome: () => {},
+    register: () => {},
+}
+
+export default connect(null, mapDispatchToProps)(RegisterPage);

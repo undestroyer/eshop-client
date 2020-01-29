@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { placeholdedSrc } from '../../helpers/PlaceholdedImgSrc';
 import './CartItem.scss';
+import PropTypes from 'prop-types';
 
 function CartItem(props) {
     const [amount, setAmount] = useState(props.amount);
@@ -43,6 +44,12 @@ function CartItem(props) {
             </div>
         </div>
     );
+}
+
+CartItem.propTypes = {
+    amount: PropTypes.number.isRequired,
+    product: PropTypes.object.isRequired,
+    isEditable: PropTypes.bool.isRequired,
 }
 
 export default CartItem;
