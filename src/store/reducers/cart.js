@@ -2,7 +2,7 @@ import Types from '../types';
 
 const initialState = {
     items: [],
-    lockedUntil: 0
+    lockedUntil: null
 }
 
 const cart = (state = initialState, action) => {
